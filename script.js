@@ -39,9 +39,43 @@ let score = {
   computerScore: 0
 }
 
-function playRound() {
+const btnRock = document.querySelector(".rock");
+const btnPaper = document.querySelector(".paper");
+const btnScissor = document.querySelector(".scissor");
+const playerMove = document.querySelector(".player-move")
+
+btnRock.addEventListener("click", () => {
+  playRound("rock");
+});
+
+btnPaper.addEventListener("click", () => {
+  playRound("paper");
+});
+
+btnScissor.addEventListener("click", () => {
+  playRound("scissor");
+})
+
+
+function getComputerChoice() {
+  const computerChoice = Math.floor(Math.random() * 10);
+
+  let computerMove = "";
+
+  if(computerChoice >= 0 && computerChoice <= 3) {
+    computerMove = rock;
+  } else if(computerChoice >= 4 && computerChoice <= 6) {
+    computerMove = paper;
+  } else if(computerChoice >= 5 && computerChoice <= 9) {
+   computerMove = scissor;
+  }
+
+  return computerMove;
+
+}
+
+function playRound(humanMove) {
   const computerMove = getComputerChoice();
-  const humanMove = getHumanChoice();
 
   let result = ''
 
@@ -63,7 +97,8 @@ function playRound() {
       score.computerScore++
     }else if(computerMove === scissor){
       result = "Computer Win";
-      score.computerScore++}
+      score.computerScore++
+    }
     }
 
   if(humanMove === scissor){
@@ -78,64 +113,21 @@ function playRound() {
     }
   }
 
-    console.log(`${result}, Score: human: ${score.humanScore} computer: ${score.computerScore}`);
+  document.querySelector(".moves").textContent = `${humanMove} vs ${computerMove}`
+  document.querySelector(".stats").textContent = `Player score: ${score.humanScore} | Computer score: ${score.computerScore}`
 
-    const playAgain = confirm("Play again?");
-    if(playAgain === true){
-      playRound();
-    }else {
-      console.log("Thank you for playing");
-    }
-    
-}
-playRound();
+  if(score.humanScore === 5 || score.computerScore === 5){
+    /* document.querySelector(".moves").textContent = ""
+    document.querySelector(".stats").textContent = "" */
+    score.humanScore = 0;
+    score.computerScore = 0;
 
-/* function playRound(humanMove, computerMove){
-  if(humanMove === rock && computerMove === rock){
-    console.log("Tie")
-  }else if(humanMove === rock && computerMove === paper){
-    console.log("Computer Win");
-  }else if(humanMove === rock && computerMove === scissor){
-    console.log("Human Win");
-  }
-}
-const humanMove = getHumanChoice();
-const computerMove = getComputerChoice();
-playRound(humanMove, computerMove); */
-
-
-
-function getComputerChoice() {
-  const computerChoice = Math.floor(Math.random() * 10);
-
-  let computerMove = "";
-
-  if(computerChoice >= 0 && computerChoice <= 3) {
-    console.log("Computer move:" + " " + rock);
-    computerMove = rock;
-  } else if(computerChoice >= 4 && computerChoice <= 6) {
-    console.log("Computer move:" + " " + paper);
-    computerMove = paper;
-  } else if(computerChoice >= 5 && computerChoice <= 9) {
-    console.log("Computer move:" + " " + scissor);
-   computerMove = scissor;
+    document.querySelector(".winner").textContent = result
   }
 
-  return computerMove;
-
-}
 
 
-function getHumanChoice() {
-  let inputMove = prompt("Input your move rock? paper? scissor?");
-  let humanMove = "";
+  console.log(`${humanMove} vs ${computerMove} \n${result}`);
 
-  if(inputMove === rock || inputMove === paper || inputMove === scissor ) {
-      console.log("Your move:" + " " + inputMove);
-      humanMove = inputMove;
-  }else {
-    console.log("Input valid move")
-  }
-  return humanMove
 }
 
