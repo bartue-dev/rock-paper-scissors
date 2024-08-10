@@ -116,18 +116,31 @@ function playRound(humanMove) {
   document.querySelector(".moves").textContent = `${humanMove} vs ${computerMove}`
   document.querySelector(".stats").textContent = `Player score: ${score.humanScore} | Computer score: ${score.computerScore}`
 
-  if(score.humanScore === 5 || score.computerScore === 5){
-    /* document.querySelector(".moves").textContent = ""
-    document.querySelector(".stats").textContent = "" */
+  if(score.humanScore === 5){
+    document.querySelector(".final-winner").textContent = "You Win" 
+    document.querySelector(".moves").textContent = "";
+    document.querySelector(".stats").textContent = "";
+    document.querySelector(".winner").textContent = "";
+    
     score.humanScore = 0;
     score.computerScore = 0;
 
-    document.querySelector(".winner").textContent = result
+   
+    }
+  
+  if(score.computerScore === 5){
+    document.querySelector(".final-winner").textContent = "Computer Win"
+    document.querySelector(".moves").textContent = "";
+    document.querySelector(".stats").textContent = "";
+    document.querySelector(".winner").textContent = "";
+
+    score.humanScore = 0;
+    score.humanScore = 0;
+
+
   }
 
-
-
-  console.log(`${humanMove} vs ${computerMove} \n${result}`);
+  console.log(`${humanMove} vs ${computerMove} \n${result} ${score.humanScore} ${score.computerScore}`);
 
 }
 
